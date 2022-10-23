@@ -28,6 +28,7 @@ namespace UserOutput {
         DigitalOutput(uint8_t number, uint8_t pin);
 
         bool set_level(bool isOn);
+        
 
     protected:
         void init();
@@ -42,7 +43,9 @@ namespace UserOutput {
         AnalogOutput();
         AnalogOutput(uint8_t number, uint8_t pin, float pwm_frequency);
         bool     set_level(uint32_t numerator);
+        bool     set_freq(float Frequencia);
         uint32_t denominator() { return 1UL << _resolution_bits; };
+
 
     protected:
         void init();

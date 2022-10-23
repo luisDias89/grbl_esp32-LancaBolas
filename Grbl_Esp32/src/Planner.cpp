@@ -195,17 +195,20 @@ static void planner_recalculate() {
     }
 }
 
+// Faz reset do plano de movimento atual
 void plan_reset() {
     memset(&pl, 0, sizeof(planner_t));  // Clear planner struct
     plan_reset_buffer();
 }
 
+// Faz Reset de todo o buffer que vai entrar no planer
 void plan_reset_buffer() {
     block_buffer_tail    = 0;
     block_buffer_head    = 0;  // Empty = tail
     next_buffer_head     = 1;  // plan_next_block_index(block_buffer_head)
     block_buffer_planned = 0;  // = block_buffer_tail;
 }
+
 
 void plan_discard_current_block() {
     if (block_buffer_head != block_buffer_tail) {  // Discard non-empty buffer.

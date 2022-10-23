@@ -26,7 +26,18 @@
     along with Grbl_ESP32.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define MACHINE_NAME            "ESP32_V4"
+// APP LANÇA BOLAS    - Define o maximo de axis para 4, (X Y Z e A para lançar a bola).
+//#ifdef N_AXIS
+//       #undef N_AXIS
+//#endif
+//#define N_AXIS 4
+
+#define MACHINE_NAME            "Lanca bolas UA"            // APP LANÇA BOLAS
+
+// OK to comment out to use pin for other features
+#define STEPPERS_DISABLE_PIN    GPIO_NUM_13
+
+#define DEFAULT_INVERT_ST_ENABLE 0  // $4 boolean
 
 #define X_STEP_PIN              GPIO_NUM_12
 #define X_DIRECTION_PIN         GPIO_NUM_14
@@ -34,23 +45,32 @@
 #define Y_DIRECTION_PIN         GPIO_NUM_15
 #define Z_STEP_PIN              GPIO_NUM_27
 #define Z_DIRECTION_PIN         GPIO_NUM_33
+#define A_STEP_PIN              GPIO_NUM_25
+#define A_DIRECTION_PIN         GPIO_NUM_32
+
 
 #define X_LIMIT_PIN             GPIO_NUM_17
 #define Y_LIMIT_PIN             GPIO_NUM_4
 #define Z_LIMIT_PIN             GPIO_NUM_16
+#define A_LIMIT_PIN             GPIO_NUM_19
 
 
-// OK to comment out to use pin for other features
-#define STEPPERS_DISABLE_PIN    GPIO_NUM_13
+
 
 #define SPINDLE_TYPE            SpindleType::PWM
-#define SPINDLE_OUTPUT_PIN      GPIO_NUM_2   // labeled SpinPWM
+//#define SPINDLE_OUTPUT_PIN      GPIO_NUM_2   // labeled SpinPWM
 #define SPINDLE_ENABLE_PIN      GPIO_NUM_22  // labeled SpinEnbl
 
-#define COOLANT_MIST_PIN        GPIO_NUM_21  // labeled Mist
-#define COOLANT_FLOOD_PIN       GPIO_NUM_25  // labeled Flood
-#define PROBE_PIN               GPIO_NUM_32  // labeled Probe
+//#define COOLANT_MIST_PIN        GPIO_NUM_21  // labeled Mist
+//#define COOLANT_FLOOD_PIN       GPIO_NUM_25  // labeled Flood
+//#define PROBE_PIN               GPIO_NUM_32  // labeled Probe
 
+// Define quais o pinos de saida analogica ou frequencia para control dos motores
+#define USER_ANALOG_PIN_0 GPIO_NUM_5
+#define USER_ANALOG_PIN_1 GPIO_NUM_18
+
+//APP_BOLAS para frequencia ativar
+//#define USER_PWM_OUTPUT 0
 
 /*
 #define CONTROL_SAFETY_DOOR_PIN GPIO_NUM_35  // labeled Door,  needs external pullup

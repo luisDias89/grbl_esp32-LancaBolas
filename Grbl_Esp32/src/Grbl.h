@@ -21,7 +21,7 @@
 */
 
 // Grbl versioning system
-const char* const GRBL_VERSION       = "1.3a";
+const char* const GRBL_VERSION       = "1.3a_APP_UA Bolas";
 const char* const GRBL_VERSION_BUILD = "20211103";
 
 //#include <sdkconfig.h>

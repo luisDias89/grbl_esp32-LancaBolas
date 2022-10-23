@@ -34,6 +34,7 @@ const double SOME_LARGE_VALUE = 1.0E+38;
 
 // Axis array index values. Must start with 0 and be continuous.
 // Note: You set the number of axes used by changing MAX_N_AXIS.
+
 // Be sure to define pins or servos in the machine definition file.
 const int X_AXIS = 0;  // Axis indexing value.
 const int Y_AXIS = 1;

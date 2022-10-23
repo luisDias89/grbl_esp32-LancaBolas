@@ -51,7 +51,7 @@
 #endif
 
 #ifndef DEFAULT_STEPPER_IDLE_LOCK_TIME
-#    define DEFAULT_STEPPER_IDLE_LOCK_TIME 250  // $1 msec (0-254, 255 keeps steppers enabled)
+#    define DEFAULT_STEPPER_IDLE_LOCK_TIME 250  // $1 msec (0-254, 255 keeps steppers enabled)    //App lança bolas
 #endif
 
 #ifndef DEFAULT_STEPPING_INVERT_MASK
@@ -302,22 +302,22 @@
 #define SEC_PER_MIN_SQ (60.0 * 60.0)  // Seconds Per Minute Squared, for acceleration conversion
 // Default accelerations are expressed in mm/sec^2
 #ifndef DEFAULT_X_ACCELERATION
-#    define DEFAULT_X_ACCELERATION 200.0
+#    define DEFAULT_X_ACCELERATION 10000.0      // APP LANÇA BOLAS
 #endif
 #ifndef DEFAULT_Y_ACCELERATION
-#    define DEFAULT_Y_ACCELERATION 200.0
+#    define DEFAULT_Y_ACCELERATION 10000.0      // APP LANÇA BOLAS
 #endif
 #ifndef DEFAULT_Z_ACCELERATION
-#    define DEFAULT_Z_ACCELERATION 200.0
+#    define DEFAULT_Z_ACCELERATION 10000.0      // APP LANÇA BOLAS
 #endif
 #ifndef DEFAULT_A_ACCELERATION
-#    define DEFAULT_A_ACCELERATION 200.0
+#    define DEFAULT_A_ACCELERATION 10000.0      // APP LANÇA BOLAS
 #endif
 #ifndef DEFAULT_B_ACCELERATION
-#    define DEFAULT_B_ACCELERATION 200.0
+#    define DEFAULT_B_ACCELERATION 10000.0      // APP LANÇA BOLAS
 #endif
 #ifndef DEFAULT_C_ACCELERATION
-#    define DEFAULT_C_ACCELERATION 200.0
+#    define DEFAULT_C_ACCELERATION 10000.0      // APP LANÇA BOLAS
 #endif
 
 // ========= AXIS MAX TRAVEL ============

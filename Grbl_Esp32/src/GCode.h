@@ -49,6 +49,7 @@ enum class ModalGroup : uint8_t {
     MM8  = 13,  // [M7,M8,M9] Coolant control
     MM9  = 14,  // [M56] Override control
     MM10 = 15,  // [M62, M63, M64, M65, M67, M68] User Defined http://linuxcnc.org/docs/html/gcode/overview.html#_modal_groups
+    
 };
 
 // Command actions for within execution-type modal groups (motion, stopping, non-modal). Used
@@ -70,7 +71,7 @@ enum class NonModal : uint8_t {
     SetHome1              = 40,   // G30.1 (Do not alter value)
     AbsoluteOverride      = 53,   // G53 (Do not alter value)
     SetCoordinateOffset   = 92,   // G92 (Do not alter value)
-    ResetCoordinateOffset = 102,  //G92.1 (Do not alter value)
+    ResetCoordinateOffset = 102,  // G92.1 (Do not alter value)
 };
 
 // Modal Group G1: Motion modes

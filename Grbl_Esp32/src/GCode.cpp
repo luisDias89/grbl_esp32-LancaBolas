@@ -23,6 +23,8 @@
 */
 
 #include "Grbl.h"
+#include <map>
+#include "Regex.h"
 
 // Allow iteration over CoordIndex values
 CoordIndex& operator++(CoordIndex& i) {
@@ -447,7 +449,7 @@ Error gc_execute_line(char* line, uint8_t client) {
                 command_words |= bitmask;
                 break;
             case 'M':
-                // Determine 'M' command and its modal group
+                // Se for 'M' ento executa este comandos do modal Group
                 if (mantissa > 0) {
                     FAIL(Error::GcodeCommandValueNotInteger);  // [No Mxx.x commands]
                 }
@@ -498,6 +500,8 @@ Error gc_execute_line(char* line, uint8_t client) {
                         mg_word_bit = ModalGroup::MM6;
                         break;
                     case 7:
+                    grbl_msg_sendf(CLIENT_SERIAL, MsgLevel::Info, "M7 - %d", number_axis->get());
+                    //grbl_sendf(out->client(),"ComandoM%d",7); // App bolas   alteração
                     case 8:
                     case 9:
                         switch (int_value) {
@@ -550,8 +554,8 @@ Error gc_execute_line(char* line, uint8_t client) {
                     default:
                         FAIL(Error::GcodeUnsupportedCommand);  // [Unsupported M command]
                 }
-                // Check for more than one command per modal group violations in the current block
-                // NOTE: Variable 'mg_word_bit' is always assigned, if the command is valid.
+                // Verifica se há mais de um comando por violações de grupo modal no bloco atual
+                // NOTE: A variavel 'mg_word_bit'  sempre preenchida, se o comando for valido.
                 bitmask = bit(mg_word_bit);
                 if (bit_istrue(command_words, bitmask)) {
                     FAIL(Error::GcodeModalGroupViolation);
@@ -632,8 +636,12 @@ Error gc_execute_line(char* line, uint8_t client) {
                         break;
                     case 'Q':
                         axis_word_bit     = GCodeWord::Q;
+
+                        //Alteração para o APP_BOLAS, de duty para Freq, caso estaja definido USER_PWM_OUTPUT
+
                         gc_block.values.q = value;
-                        //grbl_msg_sendf(CLIENT_SERIAL, MSG_LEVEL_INFO, "Q %2.2f", value);
+                        //Visualizar quanto estou a receber aqui
+                        //grbl_msg_sendf(CLIENT_SERIAL, MsgLevel::Info, "Q %2.2f", gc_block.values.q);
                         break;
                     case 'R':
                         axis_word_bit     = GCodeWord::R;
@@ -1412,13 +1420,36 @@ Error gc_execute_line(char* line, uint8_t client) {
     }
     if ((gc_block.modal.io_control == IoControl::SetAnalogSync) || (gc_block.modal.io_control == IoControl::SetAnalogImmediate)) {
         if (gc_block.values.e < MaxUserDigitalPin) {
-            gc_block.values.q = constrain(gc_block.values.q, 0.0, 100.0);  // force into valid range
+
+            // Transforma esta variavel num valor valido de 0 a 100 APP_BOLAS
+            #ifdef USER_PWM_OUTPUT
+                gc_block.values.q = constrain(gc_block.values.q, 0.0, 20000.0);  // force into valid range
+            #else
+                gc_block.values.q = constrain(gc_block.values.q, 0.0, 100.0);  // force into valid range
+            #endif
+
             if (gc_block.modal.io_control == IoControl::SetAnalogSync) {
                 protocol_buffer_synchronize();
             }
-            if (!sys_set_analog((int)gc_block.values.e, gc_block.values.q)) {
+            
+            //if (!sys_set_analog((int)gc_block.values.e, gc_block.values.q)) {
+            //    FAIL(Error::PParamMaxExceeded);
+            //}
+
+            // APP_BOLAS ATUALIZAÇÃO da FUNçÃO
+            
+            //APP_BOLAS
+            #ifdef USER_PWM_OUTPUT
+                if (!sys_set_freq((int)gc_block.values.e, gc_block.values.q)) {
                 FAIL(Error::PParamMaxExceeded);
             }
+            #else
+                if (!sys_set_analog((int)gc_block.values.e, gc_block.values.q)) {
+                FAIL(Error::PParamMaxExceeded);
+            }
+            #endif
+
+
         } else {
             FAIL(Error::PParamMaxExceeded);
         }

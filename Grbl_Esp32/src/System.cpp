@@ -302,6 +302,13 @@ bool sys_set_analog(uint8_t io_num, float percent) {
     return analog->set_level(numerator);
 }
 
+// io_num is the virtual analog pin#            //APP_BOLAS
+bool sys_set_freq(uint8_t io_num, float freq) {
+    auto     analog    = myAnalogOutputs[io_num];
+    //uint32_t numerator = freq / 100.0 * analog->denominator();
+    return analog->set_freq(freq);
+}
+
 /*
     This returns an unused pwm channel.
     The 8 channels share 4 timers, so pairs 0,1 & 2,3 , etc
@@ -337,6 +344,7 @@ uint8_t sys_calc_pwm_precision(uint32_t freq) {
 
     return precision - 1;
 }
+
 void __attribute__((weak)) user_defined_macro(uint8_t index) {
     // must be in Idle
     if (sys.state != State::Idle) {

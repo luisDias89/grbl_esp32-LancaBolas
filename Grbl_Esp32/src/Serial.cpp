@@ -178,7 +178,8 @@ void clientCheckTask(void* pvParameters) {
             // not passed into the main buffer, but these set system state flag bits for realtime execution.
             if (is_realtime_command(data)) {
                 execute_realtime_command(static_cast<Cmd>(data), client);
-            } else {
+            } else 
+            {
 #if defined(ENABLE_SD_CARD)
                 if (get_sd_state(false) < SDState::Busy) {
 #endif  //ENABLE_SD_CARD

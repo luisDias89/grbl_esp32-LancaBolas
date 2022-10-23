@@ -97,6 +97,33 @@ namespace UserOutput {
             CLIENT_SERIAL, MsgLevel::Info, "User Analog Output:%d on Pin:%s Freq:%0.0fHz", _number, pinName(_pin).c_str(), _pwm_frequency);
     }
 
+    // Função criada para o APP_BOLAS, altera a frequencia, frequencia maxima 9600 hz
+    bool AnalogOutput::set_freq(float frequencia) {
+        // look for errors, but ignore if turning off to prevent mask turn off from generating errors
+        if (_pin == UNDEFINED_PIN) {
+            return false;
+        }
+
+        if (_pwm_channel == -1) {
+            grbl_msg_sendf(CLIENT_SERIAL, MsgLevel::Info, "M67 PWM channel error");
+            return false;
+        }
+
+        if (_pwm_frequency == frequencia) {
+            return true;
+        }
+
+        _pwm_frequency = frequencia;
+        ledcSetup(_pwm_channel, _pwm_frequency, _resolution_bits);
+        ledcAttachPin(_pin, _pwm_channel);
+        uint32_t duty = 50 / 100.0 * denominator();
+        ledcWrite(_pwm_channel, duty);
+
+        
+        return true;
+    }
+
+
     // returns true if able to set value
     bool AnalogOutput::set_level(uint32_t numerator) {
         // look for errors, but ignore if turning off to prevent mask turn off from generating errors

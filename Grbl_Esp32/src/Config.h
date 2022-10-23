@@ -80,7 +80,7 @@ const int MAX_N_AXIS = 6;
 // Number of axes defined (steppers, servos, etc) (valid range: 3 to 6)
 // Even if your machine only uses less than the minimum of 3, you should select 3
 #ifndef N_AXIS
-#    define N_AXIS 3
+#    define N_AXIS 5
 #endif
 
 #ifndef LIMIT_MASK
@@ -96,23 +96,23 @@ const int MAX_N_AXIS = 6;
 //#define CONNECT_TO_SSID  "your SSID"
 //#define SSID_PASSWORD  "your SSID password"
 //CONFIGURE_EYECATCH_BEGIN (DO NOT MODIFY THIS LINE)
-#define ENABLE_BLUETOOTH  // enable bluetooth
+//#define ENABLE_BLUETOOTH  // enable bluetooth
 
-#define ENABLE_SD_CARD  // enable use of SD Card to run jobs
+//#define ENABLE_SD_CARD  // enable use of SD Card to run jobs
 
-#define ENABLE_WIFI  //enable wifi
+//#define ENABLE_WIFI  //enable wifi
 
 #if defined(ENABLE_WIFI) || defined(ENABLE_BLUETOOTH)
 #    define WIFI_OR_BLUETOOTH
 #endif
 
-#define ENABLE_HTTP                //enable HTTP and all related services
-#define ENABLE_OTA                 //enable OTA
-#define ENABLE_TELNET              //enable telnet
-#define ENABLE_TELNET_WELCOME_MSG  //display welcome string when connect to telnet
-#define ENABLE_MDNS                //enable mDNS discovery
-#define ENABLE_SSDP                //enable UPNP discovery
-#define ENABLE_NOTIFICATIONS       //enable notifications
+//#define ENABLE_HTTP                //enable HTTP and all related services
+//#define ENABLE_OTA                 //enable OTA
+//#define ENABLE_TELNET              //enable telnet
+//#define ENABLE_TELNET_WELCOME_MSG  //display welcome string when connect to telnet
+//#define ENABLE_MDNS                //enable mDNS discovery
+//#define ENABLE_SSDP                //enable UPNP discovery
+//#define ENABLE_NOTIFICATIONS       //enable notifications
 
 #define ENABLE_SERIAL2SOCKET_IN
 #define ENABLE_SERIAL2SOCKET_OUT
@@ -202,7 +202,7 @@ enum class Cmd : uint8_t {
 // If homing is enabled, homing init lock sets Grbl into an alarm state upon power up. This forces
 // the user to perform the homing cycle (or override the locks) before doing anything else. This is
 // mainly a safety feature to remind the user to home, since position is unknown to Grbl.
-#define HOMING_INIT_LOCK  // Comment to disable
+//#define HOMING_INIT_LOCK  // Comment to disable
 
 // Number of homing cycles performed after when the machine initially jogs to limit switches.
 // This help in preventing overshoot and should improve repeatability. This value should be one or
@@ -453,7 +453,9 @@ const int DWELL_TIME_STEP = 50;  // Integer (1-255) (milliseconds)
 // available RAM, like when re-compiling for a Mega2560. Or decrease if the Arduino begins to
 // crash due to the lack of available RAM or if the CPU is having trouble keeping up with planning
 // new incoming motions as they are executed.
-// #define BLOCK_BUFFER_SIZE 16 // Uncomment to override default in planner.h.
+
+//=========================== alteração do lançabolas ==============================
+ #define BLOCK_BUFFER_SIZE 2 // Uncomment to override default in planner.h.
 
 // Governs the size of the intermediary step segment buffer between the step execution algorithm
 // and the planner blocks. Each segment is set of steps executed at a constant velocity over a

@@ -175,6 +175,7 @@ void system_exec_control_pin(ControlPins pins);
 bool sys_set_digital(uint8_t io_num, bool turnOn);
 void sys_digital_all_off();
 bool sys_set_analog(uint8_t io_num, float percent);
+bool sys_set_freq(uint8_t io_num, float freq); //APP_BOLAS
 void sys_analog_all_off();
 
 int8_t sys_get_next_PWM_chan_num();
